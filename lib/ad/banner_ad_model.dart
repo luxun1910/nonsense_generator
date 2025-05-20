@@ -1,0 +1,42 @@
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:nonsense_generator/logger_singleton.dart';
+
+/// バナー広告モデル
+class BannerAdModel extends ChangeNotifier {
+  BannerAdModel() {
+    bannerAd = BannerAd(
+        adUnitId: bannerAdUnitId,
+        size: AdSize.fullBanner,
+        request: const AdRequest(),
+        listener: const BannerAdListener());
+    LoggerSingleton.logger.i("広告初期化完了");
+    notifyListeners();
+  }
+
+  /// バナー広告
+  BannerAd? bannerAd;
+
+  /// バナー広告ID
+  String get bannerAdUnitId {
+    var bunnerAdUnitIDForAndroid =
+        const String.fromEnvironment('bunnerAdUnitIDForAndroid');
+
+    if (Platform.isAndroid) {
+      // 広告
+      return bunnerAdUnitIDForAndroid;
+    } else if (Platform.isIOS) {
+      //テスト広告
+      return "ca-app-pub-3940256099942544/2934735716";
+    } else {
+      throw UnsupportedError("Unsupported platform");
+    }
+  }
+
+  /// バナー広告読み込み
+  void loadBannerAd() async {
+    await bannerAd?.load();
+    LoggerSingleton.logger.i("広告読み込み完了");
+  }
+}
