@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "421436915348",
+    "project_id": "nonsensegenerator-d140d",
+    "storage_bucket": "nonsensegenerator-d140d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:421436915348:android:36cacd71d8f0d13988be81",
+        "android_client_info": {
+          "package_name": "com.unanimousworks.nonsense_generator.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe0-Fqe3l83CdmCRNX1hWtRr0ZqKxcir8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
