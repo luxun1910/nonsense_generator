@@ -1,9 +1,10 @@
 import 'dart:io';
-import 'package:dart_openai/dart_openai.dart';
 import 'package:drift/drift.dart' as dart;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:nonsense_generator/ad/banner_ad_model.dart';
 import 'package:nonsense_generator/ad/banner_ad_page.dart';
 import 'package:nonsense_generator/database/database.dart';
@@ -15,6 +16,7 @@ import 'package:nonsense_generator/nonsense_generate_page/widgets/limit_num_info
 import 'package:nonsense_generator/nonsense_generate_page/nonsense_generate_controller.dart';
 import 'package:nonsense_generator/nonsense_generate_page/widgets/prompt_input_box.dart';
 import 'package:nonsense_generator/nonsense_generate_page/widgets/nonsense_output_box.dart';
+import 'package:nonsense_generator/services/firebase_auth_service.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -22,8 +24,14 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  OpenAI.apiKey = const String.fromEnvironment('OPEN_AI_API_KEY');
-  OpenAI.requestsTimeOut = const Duration(seconds: 120);
+  // Firebase初期化
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // Firebase匿名認証
+  final authService = FirebaseAuthService();
+  await authService.signInAnonymously();
 
   if (Platform.isAndroid || Platform.isIOS) {
     MobileAds.instance.initialize();
